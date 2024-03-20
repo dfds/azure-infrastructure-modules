@@ -1,5 +1,5 @@
 module "resourcegroup" {
-  source   = "../../_sub/containers/resourcegroup"
+  source   = "../_sub/containers/resourcegroup"
   location = "westeurope"
   rg_name  = var.name
   
@@ -19,7 +19,7 @@ module "resourcegroup" {
 }
 
 module "keyvault" {
-  source   = "../../_sub/security/keyvault"
+  source   = "../_sub/security/keyvault"
   name                          = var.name
   location                      = local.constants.location
   resource_group_name           = module.resourcegroup.name
