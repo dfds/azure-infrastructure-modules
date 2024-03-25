@@ -21,6 +21,7 @@ module "resourcegroup" {
 module "keyvault" {
   source   = "../_sub/security/keyvault"
   name                          = var.name
+  tenant_id                     = var.tenant_id
   location                      = "westeurope"
   resource_group_name           = module.resourcegroup.resource_group_name
   enabled_for_disk_encryption   = true

@@ -2,7 +2,10 @@ variable "name" {
   description = "input from the manifest"
   type        = string
 }
-
+variable "tenant_id" {
+  description = "UUId of the tenant"
+  type        = string
+}
 variable "email" {
   description = "input from the manifest"
   type        = string

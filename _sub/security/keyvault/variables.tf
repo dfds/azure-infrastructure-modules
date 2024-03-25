@@ -2,7 +2,10 @@ variable "name" {
   description = "name of the keyvault"
   type        = string
 }
-
+variable "tenant_id" {
+  description = "UUId of the tenant"
+  type        = string
+}
 variable "location" {
   description = "location of the keyvault"
   type        = string
