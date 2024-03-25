@@ -13,9 +13,6 @@ module "resourcegroup" {
     "context_name"       = var.context_name
     "capability_id"      = var.capability_id
   }
-  providers = {
-    azurerm = azurerm
-  }
 }
 
 module "keyvault" {
