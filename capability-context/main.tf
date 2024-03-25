@@ -21,7 +21,7 @@ module "resourcegroup" {
 module "keyvault" {
   source   = "../_sub/security/keyvault"
   name                          = var.name
-  location                      = local.constants.location
+  location                      = "westeurope"
   resource_group_name           = module.resourcegroup.name
   enabled_for_disk_encryption   = true
   purge_protection_enabled      = true
