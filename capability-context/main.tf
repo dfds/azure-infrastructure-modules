@@ -22,7 +22,7 @@ module "keyvault" {
   source   = "../_sub/security/keyvault"
   name                          = var.name
   location                      = "westeurope"
-  resource_group_name           = module.resource_group_name
+  resource_group_name           = module.resourcegroup.resource_group_name
   enabled_for_disk_encryption   = true
   purge_protection_enabled      = true
   soft_delete_retention_days    = 30
