@@ -12,6 +12,8 @@ variable "tags" {
   description = "Tags will be set here"
   type        = map(any)
   default     = {
-    Name = "Test"
+    Name    = "Test",
+    Tribe   = "Test",
+    Team    = "Test"
   }
 }
