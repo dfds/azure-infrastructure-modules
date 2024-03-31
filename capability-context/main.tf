@@ -38,6 +38,9 @@ module "keyvault" {
   public_network_access_enabled = true
 
   tags = {
+    "name"               = var.name
+    "Tribe"              = "YourTribeValue"
+    "Team"               = "YourTeamValue"
     "email"              = var.email
     "context_id"         = var.context_id
     "correlation_id"     = var.correlation_id

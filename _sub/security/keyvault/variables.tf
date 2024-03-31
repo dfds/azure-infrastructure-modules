@@ -39,4 +39,9 @@ variable "public_network_access_enabled" {
 variable "tags" {
   description = "Tags will be set here"
   type        = map(any)
+  default     = {
+    Name    = "Test",
+    Tribe   = "Test",
+    Team    = "Test"
+  }
 }
