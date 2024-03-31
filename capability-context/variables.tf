@@ -11,6 +11,15 @@ variable "email" {
   type        = string
 }
 
+variable "tribe" {
+  description = "tribe used for Azure tagging"
+  type        = string
+}
+variable "team" {
+  description = "team used for Azure tagging"
+  type        = string
+}
+
 variable "context_id" {
   description = "input from the manifest"
   type        = string

@@ -1,3 +1,7 @@
+module "adgroup" {
+  source        = "../_sub/security/ad-group"
+  displayname   = var.name
+}
 module "resourcegroup" {
   source   = "../_sub/containers/resourcegroup"
   location = "westeurope"
@@ -15,6 +19,11 @@ module "resourcegroup" {
     "context_name"       = var.context_name
     "capability_id"      = var.capability_id
   }
+}
+resource "azurerm_role_assignment" "resourcegroup-main" {
+  scope              = module.resourcegroup.resource_group_id
+  role_definition_id = "Contributor"
+  principal_id       = module.adgroup.group_id
 }
 
 module "keyvault" {
