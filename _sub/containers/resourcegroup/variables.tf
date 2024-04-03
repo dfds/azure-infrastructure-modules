@@ -1,5 +1,5 @@
 variable "location" {
-  description = "Azure Region where the storage account will be created."
+  description = "Azure Region where the resource group will be created."
   type        = string
 }
 
