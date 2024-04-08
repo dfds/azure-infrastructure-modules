@@ -21,9 +21,9 @@ module "resourcegroup" {
   }
 }
 resource "azurerm_role_assignment" "resourcegroup-main" {
-  scope              = module.resourcegroup.resource_group_id
-  role_definition_id = "Contributor"
-  principal_id       = module.adgroup.group_id
+  scope                 = module.resourcegroup.resource_group_id
+  role_definition_name  = "Contributor"
+  principal_id          = module.adgroup.group_id
 }
 
 module "keyvault" {
