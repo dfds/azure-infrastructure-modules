@@ -12,13 +12,13 @@ resource "azurerm_storage_account" "main" {
   shared_access_key_enabled        = true
 }
 
-resource "azurerm_storage_container" "storage_mgmt_module_container" {
+resource "azurerm_storage_container" "main_container" {
   name                  = azurerm_storage_account.main.name
   storage_account_name  = azurerm_storage_account.main.name
   container_access_type = "blob"
 }
 
-resource "azurerm_role_assignment" "psmodules_data_contributor" {
+resource "azurerm_role_assignment" "main_data_contributor" {
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = var.ad_group_id
