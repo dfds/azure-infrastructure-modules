@@ -49,3 +49,15 @@ variable "capability_id" {
   description = "input from the manifest"
   type        = string
 }
+variable "environment" {
+  description = "input from the manifest"
+  type        = string
+}
+variable "costcentre" {
+  description = "input from the manifest"
+  type        = string
+}
+variable "availability" {
+  description = "input from the manifest"
+  type        = string
+}
