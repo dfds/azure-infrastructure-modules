@@ -10,4 +10,10 @@ resource "azurerm_key_vault" "main" {
   sku_name                      = "standard"
 
   tags = var.tags
+
+  lifecycle {
+    ignore_changes = [
+      tags, 
+    ]
+  }
 }
