@@ -18,7 +18,7 @@ module "resourcegroup" {
     "capability_root_id"        = var.capability_root_id
     "context_name"              = var.context_name
     "capability_id"             = var.capability_id
-    "dfds.owner"                = var.email
+    "dfds.owner"                = var.owner
     "dfds.env"                  = var.environment
     "dfds.cost.centre"          = var.costcentre
     "dfds.service.availability" = var.availability

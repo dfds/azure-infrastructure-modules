@@ -49,6 +49,10 @@ variable "capability_id" {
   description = "input from the manifest"
   type        = string
 }
+variable "owner" {
+  description = "input from the manifest"
+  type        = string
+}
 variable "environment" {
   description = "input from the manifest"
   type        = string
