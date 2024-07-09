@@ -34,7 +34,7 @@ data "azuread_group" "capability_ssu_group" {
   display_name = "CI_SSU_Cap - ${var.capability_id}"
 }
 
-resource "azurerm_role_assignment" "resourcegroup-main" {
+resource "azurerm_role_assignment" "resourcegroup-capability" {
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "Contributor"
   principal_id          = data.azuread_group.capability_ssu_group.id
