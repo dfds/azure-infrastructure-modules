@@ -30,6 +30,16 @@ resource "azurerm_role_assignment" "resourcegroup-main" {
   principal_id          = module.adgroup.group_id
 }
 
+data "azuread_group" "capability_ssu_group" {
+  display_name = "CI_SSU_Cap - ${var.capability_id}"
+}
+
+resource "azurerm_role_assignment" "resourcegroup-main" {
+  scope                 = module.resourcegroup.resource_group_id
+  role_definition_name  = "Contributor"
+  principal_id          = data.azuread_group.capability_ssu_group.id
+}
+
 module "keyvault" {
   source   = "../_sub/security/keyvault"
   name                          = var.name
