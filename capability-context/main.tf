@@ -45,7 +45,7 @@ resource "azurerm_role_assignment" "resourcegroup-capability" {
 
 module "keyvault" {
   source   = "../_sub/security/keyvault"
-  name                          = "capability-default"
+  name                          = "${var.capability_id}_capability-default"
   tenant_id                     = var.tenant_id
   location                      = "westeurope"
   resource_group_name           = module.resourcegroup.resource_group_name
@@ -57,7 +57,7 @@ module "keyvault" {
 }
 module "storage_account" {
   source   = "../_sub/storage/storage-account"
-  sa_name                 = "capability-default"
+  sa_name                 = "${var.capability_id}_capability-default"
   location                = "westeurope"
   resource_group_name     = module.resourcegroup.resource_group_name
   ad_group_id             = module.adgroup.group_id
