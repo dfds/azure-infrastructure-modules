@@ -66,6 +66,11 @@ variable "availability" {
   type        = string
 }
 
+variable "planned_sunset" {
+  description = "input from the manifest"
+  type        = string
+}
+
 variable "enable_capability_access" {
   description = "Set up role assignment to Capability Entra ID group"
   type = bool

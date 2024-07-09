@@ -22,6 +22,7 @@ module "resourcegroup" {
     "dfds.env"                  = var.environment
     "dfds.cost.centre"          = var.costcentre
     "dfds.service.availability" = var.availability
+    "dfds.planned_sunset"       = var.planned_sunset
   }
 }
 resource "azurerm_role_assignment" "resourcegroup-main" {
