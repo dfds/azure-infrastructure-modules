@@ -33,13 +33,21 @@ resource "azurerm_role_assignment" "resourcegroup-main" {
   principal_id          = module.adgroup.group_id
 }
 
-# should not be needed
-# resource "azurerm_role_assignment" "resourcegroup-capability" {
-#   count = var.enable_capability_access ? 1 : 0
-#   scope                 = module.resourcegroup.resource_group_id
-#   role_definition_name  = "Contributor"
-#   principal_id          = module.adgroup.group_id
-# }
+###########
+### I think there will be times where this will not work
+data "azuread_group" "capability_ssu_group" {
+  count = var.enable_capability_access ? 1 : 0
+  display_name = "CI_SSU_Cap - ${var.capability_id}"
+}
+
+resource "azurerm_role_assignment" "resourcegroup-capability" {
+  count = var.enable_capability_access ? 1 : 0
+  scope                 = module.resourcegroup.resource_group_id
+  role_definition_name  = "Contributor"
+  principal_id          = module.adgroup.group_id
+}
+
+##########
 
 module "keyvault" {
   source   = "../_sub/security/keyvault"
