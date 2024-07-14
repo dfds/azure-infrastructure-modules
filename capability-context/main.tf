@@ -30,7 +30,7 @@ module "resourcegroup" {
 resource "azurerm_role_assignment" "resourcegroup-main" {
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "Contributor"
-  principal_id          = module.adgroup.group_id
+  principal_id          = module.adgroup[0].group_id
 }
 
 # should not be needed
@@ -58,5 +58,5 @@ module "storage_account" {
   sa_name                 = "${var.capability_id}0${var.environment}"
   location                = "westeurope"
   resource_group_name     = module.resourcegroup.resource_group_name
-  ad_group_id             = module.adgroup.group_id
+  ad_group_id             = module.adgroup[0].group_id
 }
