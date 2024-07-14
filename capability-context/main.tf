@@ -1,5 +1,5 @@
 module "adgroup" {
-  count         = length(data.azuread_group.example.id) == 0 ? 1 : 0
+  count         = length(data.azuread_groups.capability_ssu_group.id) == 0 ? 1 : 0
   source        = "../_sub/security/ad-group"
   displayname   = "CI_SSU_Cap - ${var.capability_id}"
 }
