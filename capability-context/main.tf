@@ -1,6 +1,7 @@
 module "adgroup" {
   source        = "../_sub/security/ad-group"
   displayname   = "CI_SSU_Cap - ${var.capability_id}"
+  capability_id = var.capability_id
 }
 
 # locals {
