@@ -5,8 +5,9 @@ module "adgroup" {
 }
 
 locals {
-  ad_group_id = var.enable_capability_access && (length(module.adgroup) > 0 ? module.adgroup[0].group_id : data.azuread_groups.capability_ssu_group[0].id)
+  ad_group_id = var.enable_capability_access && length(data.azuread_groups.capability_ssu_group) > 0 && length(module.adgroup) > 0 ? module.adgroup[0].group_id : data.azuread_groups.capability_ssu_group[0].id
 }
+
 
 module "resourcegroup" {
   source   = "../_sub/containers/resourcegroup"
