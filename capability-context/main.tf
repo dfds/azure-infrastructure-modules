@@ -1,12 +1,11 @@
 module "adgroup" {
-  count         = var.enable_capability_access && length(data.azuread_groups.capability_ssu_group) > 0 && length(data.azuread_groups.capability_ssu_group[0].id) == 0 ? 1 : 0
   source        = "../_sub/security/ad-group"
   displayname   = "CI_SSU_Cap - ${var.capability_id}"
 }
 
-locals {
-  ad_group_id = var.enable_capability_access && length(data.azuread_groups.capability_ssu_group) > 0 && length(module.adgroup) > 0 ? module.adgroup[0].group_id : data.azuread_groups.capability_ssu_group[0].id
-}
+# locals {
+#   ad_group_id = var.enable_capability_access && length(data.azuread_groups.capability_ssu_group) > 0 && length(module.adgroup) > 0 ? module.adgroup[0].group_id : data.azuread_groups.capability_ssu_group[0].id
+# }
 
 
 module "resourcegroup" {
@@ -35,7 +34,7 @@ module "resourcegroup" {
 resource "azurerm_role_assignment" "resourcegroup-main" {
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "Contributor"
-  principal_id          = local.ad_group_id
+  principal_id          = module.adgroup.group_id
 }
 
 # should not be needed
@@ -63,5 +62,5 @@ module "storage_account" {
   sa_name                 = "${var.capability_id}0${var.environment}"
   location                = "westeurope"
   resource_group_name     = module.resourcegroup.resource_group_name
-  ad_group_id             = local.ad_group_id
+  ad_group_id             = module.adgroup.group_id
 }
