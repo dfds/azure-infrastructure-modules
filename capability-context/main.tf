@@ -1,8 +1,9 @@
 module "adgroup" {
-  count         = length(data.azuread_groups.capability_ssu_group.id) == 0 ? 1 : 0
+  count         = var.enable_capability_access && length(data.azuread_groups.capability_ssu_group) > 0 && length(data.azuread_groups.capability_ssu_group[0].id) == 0 ? 1 : 0
   source        = "../_sub/security/ad-group"
   displayname   = "CI_SSU_Cap - ${var.capability_id}"
 }
+
 module "resourcegroup" {
   source   = "../_sub/containers/resourcegroup"
   location = "westeurope"
