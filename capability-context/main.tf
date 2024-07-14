@@ -1,12 +1,7 @@
 module "adgroup" {
   source        = "../_sub/security/ad-group"
   displayname   = "CI_SSU_Cap - ${var.capability_id}"
-  capability_id = var.capability_id
 }
-
-# locals {
-#   ad_group_id = var.enable_capability_access && length(data.azuread_groups.capability_ssu_group) > 0 && length(module.adgroup) > 0 ? module.adgroup[0].group_id : data.azuread_groups.capability_ssu_group[0].id
-# }
 
 
 module "resourcegroup" {
