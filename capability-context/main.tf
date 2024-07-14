@@ -1,6 +1,7 @@
 module "adgroup" {
+  count         = length(data.azuread_group.example.id) == 0 ? 1 : 0
   source        = "../_sub/security/ad-group"
-  displayname   = var.name
+  displayname   = "CI_SSU_Cap - ${var.capability_id}"
 }
 module "resourcegroup" {
   source   = "../_sub/containers/resourcegroup"
@@ -31,17 +32,13 @@ resource "azurerm_role_assignment" "resourcegroup-main" {
   principal_id          = module.adgroup.group_id
 }
 
-data "azuread_group" "capability_ssu_group" {
-  count = var.enable_capability_access ? 1 : 0
-  display_name = "CI_SSU_Cap - ${var.capability_id}"
-}
-
-resource "azurerm_role_assignment" "resourcegroup-capability" {
-  count = var.enable_capability_access ? 1 : 0
-  scope                 = module.resourcegroup.resource_group_id
-  role_definition_name  = "Contributor"
-  principal_id          = data.azuread_group.capability_ssu_group[0].id
-}
+# should not be needed
+# resource "azurerm_role_assignment" "resourcegroup-capability" {
+#   count = var.enable_capability_access ? 1 : 0
+#   scope                 = module.resourcegroup.resource_group_id
+#   role_definition_name  = "Contributor"
+#   principal_id          = module.adgroup.group_id
+# }
 
 module "keyvault" {
   source   = "../_sub/security/keyvault"
