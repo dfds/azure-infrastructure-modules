@@ -10,14 +10,25 @@ resource "azurerm_resource_group" "main" {
   }
 }
 
+locals {
+  # Get the current date and time
+  current_date = timestamp()
+
+  # Extract the current year and month, and set the day to "01"
+  start_date = formatdate("2006-01-02T15:04:05Z", "${formatdate("2006-01", local.current_date)}-01T00:00:00Z")
+
+  # Add 12 months to the start date to get the end date
+  end_date = formatdate("2006-01-02T15:04:05Z", timeadd("${formatdate("2006-01", local.current_date)}-01T00:00:00Z", "8760h")) # 8760 hours in 12 months
+}
+
 resource "azurerm_consumption_budget_resource_group" "main" {
   name                = "${azurerm_resource_group.main.name}-budget"
   resource_group_id  = azurerm_resource_group.main.id
   amount              = 5000.00
   time_grain          = "Annually"
   time_period {
-    start_date        = formatdate("yyyy-MM-dd", timestamp())
-    end_date          = formatdate("yyyy-MM-dd", timeadd(timestamp(), "8760h"))
+    start_date = local.start_date
+    end_date   = local.end_date
   }
   notification {
     enabled       = true
