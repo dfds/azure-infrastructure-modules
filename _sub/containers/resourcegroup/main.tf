@@ -14,8 +14,10 @@ locals {
   # Get the current date and time
   current_date = timestamp()
 
-  # Extract the year and month, and construct the first day of the current month
-  start_date = formatdate("2006-01-02T15:04:05Z", timeadd(timestamp(), "-${formatdate("d", timestamp())}d"))
+  # Extract the current year and month, and construct the first day of the current month
+  current_year  = formatdate("2006", local.current_date)
+  current_month = formatdate("01", local.current_date)
+  start_date = "${current_year}-${current_month}-01T00:00:00Z"
 
   # Add 12 months to the start date to get the end date
   end_date = timeadd(local.start_date, "8760h") # 8760 hours in 12 months
