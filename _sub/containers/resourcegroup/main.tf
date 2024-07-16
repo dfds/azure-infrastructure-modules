@@ -15,10 +15,10 @@ locals {
   current_date = timestamp()
 
   # Extract the current year and month, and set the day to "01"
-  start_date = formatdate("2006-01-02T15:04:05Z", "${formatdate("2006-01", local.current_date)}-01T00:00:00Z")
+  start_date = formatdate("2006-01-02", "${formatdate("2006-01", local.current_date)}-01")
 
   # Add 12 months to the start date to get the end date
-  end_date = formatdate("2006-01-02T15:04:05Z", timeadd("${formatdate("2006-01", local.current_date)}-01T00:00:00Z", "8760h")) # 8760 hours in 12 months
+  end_date = formatdate("2006-01-02", timeadd("${formatdate("2006-01", local.current_date)}-01", "8760h")) # 8760 hours in 12 months
 }
 
 resource "azurerm_consumption_budget_resource_group" "main" {
