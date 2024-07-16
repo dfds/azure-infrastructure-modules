@@ -15,7 +15,7 @@ locals {
   current_timestamp = timestamp()
 
   # Extract the current year and month, and construct the first day of the current month
-  current_year  = formatdate("2006", local.current_timestamp)
+  current_year  = formatdate("YYYY", local.current_timestamp)
   current_month = formatdate("01", local.current_timestamp)
   start_date    = "${local.current_year}-${local.current_month}-01T00:00:00Z"
 
