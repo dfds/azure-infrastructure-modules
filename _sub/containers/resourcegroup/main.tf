@@ -10,38 +10,12 @@ resource "azurerm_resource_group" "main" {
   }
 }
 
-# locals {
-#   # Get the current date and time
-#   current_date = timestamp()
-
-#   # Extract the year and month, and construct the first day of the current month
-#   start_date_prefix = formatdate("2006-01", local.current_date)
-#   start_date = "${start_date_prefix}-01T00:00:00Z"
-
-#   # Add 12 months to the start date to get the end date
-#   end_date = timeadd(local.start_date, "8760h") # 8760 hours in 12 months
-# }
-# locals {
-#   # Get the current date and time
-#   current_date = timestamp()
-
-#   # Extract the year and month, and construct the first day of the current month
-#   start_date_prefix = formatdate("2006-01", local.current_date)
-#   start_date = format("%s-01T00:00:00Z", local.start_date_prefix)
-
-#   # Add 12 months to the start date to get the end date
-#   end_date = timeadd(local.start_date, "8760h") # 8760 hours in 12 months
-# }
 locals {
   # Get the current date and time
   current_date = timestamp()
 
-  # Ensure the start date is on the first of the current month
-  current_year  = formatdate("2006", local.current_date)
-  current_month = formatdate("01", local.current_date)
-
-  # Construct the start date as the first day of the current month
-  start_date = format("%s-%s-01T00:00:00Z", local.current_year, local.current_month)
+  # Extract the year and month, and construct the first day of the current month
+  start_date = formatdate("2006-01-02T15:04:05Z", timeadd(timestamp(), "-${formatdate("d", timestamp())}d"))
 
   # Add 12 months to the start date to get the end date
   end_date = timeadd(local.start_date, "8760h") # 8760 hours in 12 months
