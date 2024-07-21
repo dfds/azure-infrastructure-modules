@@ -7,7 +7,7 @@ module "adgroup" {
 module "resourcegroup" {
   source   = "../_sub/containers/resourcegroup"
   location = "westeurope"
-  rg_name  = var.name
+  rg_name  = "rg-${var.name}"
   
   tags = {
     "name"                      = var.name
@@ -24,17 +24,16 @@ module "resourcegroup" {
     "dfds.env"                  = var.environment
     "dfds.cost.centre"          = var.costcentre
     "dfds.service.availability" = var.availability
-    "dfds.planned_sunset"       = var.planned_sunset
+    "dfds.planned_sunset"       = local.end_date
   }
+  start_date = local.start_date
+  end_date = local.end_date
 }
 resource "azurerm_role_assignment" "resourcegroup-main" {
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "Contributor"
   principal_id          = module.adgroup.group_id
 }
-
-###########
-### I think there will be times where this will not work
 data "azuread_group" "capability_ssu_group" {
   count = var.enable_capability_access ? 1 : 0
   display_name = "CI_SSU_Cap - ${var.capability_id}"
@@ -45,26 +44,4 @@ resource "azurerm_role_assignment" "resourcegroup-capability" {
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "Contributor"
   principal_id          = module.adgroup.group_id
-}
-
-##########
-
-module "keyvault" {
-  source   = "../_sub/security/keyvault"
-  name                          = "${var.capability_id}-${var.environment}"
-  tenant_id                     = var.tenant_id
-  location                      = "westeurope"
-  resource_group_name           = module.resourcegroup.resource_group_name
-  enabled_for_disk_encryption   = true
-  purge_protection_enabled      = true
-  soft_delete_retention_days    = 30
-  public_network_access_enabled = true
-
-}
-module "storage_account" {
-  source   = "../_sub/storage/storage-account"
-  sa_name                 = "${var.capability_id}0${var.environment}"
-  location                = "westeurope"
-  resource_group_name     = module.resourcegroup.resource_group_name
-  ad_group_id             = module.adgroup.group_id
 }
