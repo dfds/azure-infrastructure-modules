@@ -9,4 +9,6 @@ locals {
   
   # Add 12 months to the start date to get the end date
   end_date = timeadd(local.start_date, "8760h") # 8760 hours in 12 months
+
+  role_definition = "DFDS Developer"
 }

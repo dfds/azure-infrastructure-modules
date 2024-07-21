@@ -31,7 +31,7 @@ module "resourcegroup" {
 }
 resource "azurerm_role_assignment" "resourcegroup-main" {
   scope                 = module.resourcegroup.resource_group_id
-  role_definition_name  = "Contributor"
+  role_definition_name  = "${local.role_definition}"
   principal_id          = module.adgroup.group_id
 }
 data "azuread_group" "capability_ssu_group" {
@@ -42,6 +42,6 @@ data "azuread_group" "capability_ssu_group" {
 resource "azurerm_role_assignment" "resourcegroup-capability" {
   count = var.enable_capability_access ? 1 : 0
   scope                 = module.resourcegroup.resource_group_id
-  role_definition_name  = "Contributor"
+  role_definition_name  = "${local.role_definition}"
   principal_id          = module.adgroup.group_id
 }
