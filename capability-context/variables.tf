@@ -74,5 +74,5 @@ variable "planned_sunset" {
 variable "enable_capability_access" {
   description = "Set up role assignment to Capability Entra ID group"
   type = bool
-  default = false
+  default = true
 }
