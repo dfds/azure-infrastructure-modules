@@ -76,3 +76,9 @@ variable "enable_capability_access" {
   type = bool
   default = true
 }
+
+variable "subscription_id" {
+  description = "the subscription id for the resources"
+  type        = string
+  default     = "9a68caae-8d74-4289-9f3c-31e96120aef9"
+}
