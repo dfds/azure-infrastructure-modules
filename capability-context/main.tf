@@ -43,5 +43,5 @@ resource "azurerm_role_assignment" "resourcegroup-capability" {
   count = var.enable_capability_access ? 1 : 0
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "${local.role_definition}"
-  principal_id          = data.azuread_group.capability_ssu_group.id
+  principal_id          = data.azuread_group.capability_ssu_group[0].id
 }
