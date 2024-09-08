@@ -1,9 +1,3 @@
-module "adgroup" {
-  source        = "../_sub/security/ad-group"
-  displayname   = "CI_Cap - ${var.capability_id}"
-}
-
-
 module "resourcegroup" {
   source   = "../_sub/containers/resourcegroup"
   location = "westeurope"
@@ -29,11 +23,7 @@ module "resourcegroup" {
   start_date = local.start_date
   end_date = local.end_date
 }
-resource "azurerm_role_assignment" "resourcegroup-main" {
-  scope                 = module.resourcegroup.resource_group_id
-  role_definition_name  = "${local.role_definition}"
-  principal_id          = module.adgroup.group_id
-}
+
 data "azuread_group" "capability_ssu_group" {
   count = var.enable_capability_access ? 1 : 0
   display_name = "CI_SSU_Cap - ${var.capability_id}"
@@ -43,5 +33,5 @@ resource "azurerm_role_assignment" "resourcegroup-capability" {
   count = var.enable_capability_access ? 1 : 0
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "${local.role_definition}"
-  principal_id          = data.azuread_group.capability_ssu_group[0].id
+  principal_id          = data.azuread_group.capability_ssu_group.id
 }
