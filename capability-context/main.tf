@@ -24,14 +24,15 @@ module "resourcegroup" {
   end_date = local.end_date
 }
 
-data "azuread_group" "capability_ssu_group" {
-  count = var.enable_capability_access ? 1 : 0
-  display_name = "CI_SSU_Cap - ${var.capability_id}"
-}
-
 resource "azurerm_role_assignment" "resourcegroup-capability" {
   count = var.enable_capability_access ? 1 : 0
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "${local.role_definition}"
   principal_id          = data.azuread_group.capability_ssu_group.id
+}
+
+resource "azuread_group_member" "add_ssu_to_access_group" {
+  count             = var.enable_capability_access ? 1 : 0
+  group_object_id   = data.azuread_group.capability_access_group[0].id
+  member_object_id  = data.azuread_group.capability_ssu_group[0].id
 }
