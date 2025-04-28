@@ -28,11 +28,11 @@ resource "azurerm_role_assignment" "resourcegroup-capability" {
   count = var.enable_capability_access ? 1 : 0
   scope                 = module.resourcegroup.resource_group_id
   role_definition_name  = "${local.role_definition}"
-  principal_id          = data.azuread_group.capability_ssu_group[0].id
+  principal_id          = data.azuread_group.capability_ssu_group[0].object_id
 }
 
 resource "azuread_group_member" "add_ssu_to_access_group" {
   count             = var.enable_capability_access ? 1 : 0
-  group_object_id   = data.azuread_group.capability_access_group[0].id
-  member_object_id  = data.azuread_group.capability_ssu_group[0].id
+  group_object_id   = data.azuread_group.capability_access_group[0].object_id
+  member_object_id  = data.azuread_group.capability_ssu_group[0].object_id
 }
