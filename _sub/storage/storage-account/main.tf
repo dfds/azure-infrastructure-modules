@@ -5,7 +5,6 @@ resource "azurerm_storage_account" "main" {
   account_tier                     = "Standard"
   account_replication_type         = "LRS"
   
-  enable_https_traffic_only        = true
   min_tls_version                  = "TLS1_2"
   cross_tenant_replication_enabled = false
   public_network_access_enabled    = true
@@ -22,7 +21,7 @@ resource "azurerm_storage_account" "main" {
 
 resource "azurerm_storage_container" "main_container" {
   name                  = azurerm_storage_account.main.name
-  storage_account_name  = azurerm_storage_account.main.name
+  storage_account_id  = azurerm_storage_account.main.id
   container_access_type = "blob"
 }
 
