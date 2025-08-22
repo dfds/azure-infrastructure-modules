@@ -19,6 +19,10 @@ module "resourcegroup" {
     "dfds.cost.centre"          = var.costcentre
     "dfds.service.availability" = var.availability
     "dfds.planned_sunset"       = local.end_date
+    "dfds.purpose"              = var.purpose
+    "dfds.catalogue_id"         = var.catalogue_id
+    "dfds.risk"                 = var.risk
+    "dfds.gdpr"                 = var.gdpr
   }
   start_date = local.start_date
   end_date = local.end_date

@@ -66,7 +66,22 @@ variable "availability" {
   type        = string
 }
 
-variable "planned_sunset" {
+variable "purpose" {
+  description = "input from the manifest"
+  type        = string
+}
+
+variable "catalogue_id" {
+  description = "input from the manifest"
+  type        = string
+}
+
+variable "risk" {
+  description = "input from the manifest"
+  type        = string
+}
+
+variable "gdpr" {
   description = "input from the manifest"
   type        = string
 }
