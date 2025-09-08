@@ -97,3 +97,4 @@ variable "subscription_id" {
   type        = string
   default     = "9a68caae-8d74-4289-9f3c-31e96120aef9"
 }
+ 
