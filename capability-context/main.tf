@@ -28,12 +28,13 @@ module "resourcegroup" {
   end_date = local.end_date
 }
 
-resource "azurerm_role_assignment" "resourcegroup-capability" {
-  count = var.enable_capability_access ? 1 : 0
-  scope                 = module.resourcegroup.resource_group_id
-  role_definition_name  = "${local.role_definition}"
-  principal_id          = data.azuread_group.capability_ssu_group[0].object_id
-}
+# Get rid of temporarily, shouldn't be needed
+# resource "azurerm_role_assignment" "resourcegroup-capability" {
+#   count = var.enable_capability_access ? 1 : 0
+#   scope                 = module.resourcegroup.resource_group_id
+#   role_definition_name  = "${local.role_definition}"
+#   principal_id          = data.azuread_group.capability_ssu_group[0].object_id
+# }
 
 resource "azuread_group_member" "add_ssu_to_access_group" {
   count             = var.enable_capability_access ? 1 : 0
